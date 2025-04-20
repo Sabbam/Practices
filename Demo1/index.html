@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NeelTech Auth</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyApQKrgNQE1FACGtMwaW5jT3pUmjgO5xmM",
+    authDomain: "testings-1c42a.firebaseapp.com",
+    projectId: "testings-1c42a",
+    storageBucket: "testings-1c42a.appspot.com",
+    messagingSenderId: "849734763177",
+    appId: "1:849734763177:web:9e376756cdce2f185a5fb8",
+    measurementId: "G-E3TW8KXP9T"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  function signup() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    auth.createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        document.getElementById("authStatus").innerText = "✅ Signup successful!";
+      })
+      .catch(error => {
+        document.getElementById("authStatus").innerText = "❌ " + error.message;
+      });
+  }
+
+  function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    auth.signInWithEmailAndPassword(email, password)
+      .then(() => {
+        document.getElementById("authStatus").innerText = "✅ Login successful!";
+      })
+      .catch(error => {
+        document.getElementById("authStatus").innerText = "❌ " + error.message;
+      });
+  }
+
+  function toggleMenu() {
+    document.getElementById("navLinks").classList.toggle("hidden");
+  }
+</script>
+
+<body class="bg-gray-900 text-gray-100 font-sans">
+
+  <!-- Navbar -->
+  <nav class="bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-700 shadow-xl">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+      <div class="text-3xl font-bold text-white tracking-wider">
+        Neel<span class="text-yellow-400">Tech</span>
+      </div>
+      <div class="md:hidden cursor-pointer" onclick="toggleMenu()">☰</div>
+      <ul id="navLinks" class="hidden md:flex space-x-8 text-white font-semibold">
+        <li><a href="#hero" class="hover:text-yellow-300 transition-all">Home</a></li>
+        <li><a href="#about" class="hover:text-yellow-300 transition-all">About</a></li>
+        <li><a href="#social" class="hover:text-yellow-300 transition-all">Social</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero" class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white text-center py-32 relative overflow-hidden">
+    <div class="absolute inset-0 bg-opacity-60 bg-black z-0"></div>
+    <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight z-10">Welcome to <span class="text-yellow-300">NeelTech</span></h1>
+    <p class="text-lg md:text-2xl font-light z-10 mb-6">Explore tutorials and tech content in Telugu with a modern edge.</p>
+    <a href="#login" class="bg-yellow-400 text-gray-900 px-8 py-4 rounded-full shadow-lg hover:bg-yellow-500 transition-all transform hover:scale-105">
+      Get Started
+    </a>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-16 px-8 md:px-16 bg-gray-800 text-center rounded-t-3xl">
+    <h2 class="text-4xl font-extrabold text-white mb-8">About Us</h2>
+    <p class="text-xl text-gray-300 max-w-4xl mx-auto">NeelTech offers an innovative learning platform that simplifies tech content in Telugu. We focus on delivering impactful knowledge with clarity and a fun experience.</p>
+  </section>
+
+  <!-- Auth Section -->
+  <section id="login" class="py-24 bg-gradient-to-b from-gray-800 to-gray-900">
+    <div class="max-w-lg mx-auto text-center px-6 md:px-0">
+      <h2 class="text-3xl font-bold text-white mb-6">Sign Up / Login</h2>
+      <div class="space-y-4">
+        <input id="email" type="email" placeholder="Email" class="w-full p-4 border border-gray-700 rounded-xl bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"/>
+        <input id="password" type="password" placeholder="Password" class="w-full p-4 border border-gray-700 rounded-xl bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"/>
+      </div>
+      <div class="flex justify-center mt-8 space-x-6">
+        <button onclick="signup()" class="bg-yellow-400 text-gray-900 px-8 py-4 rounded-full shadow-lg hover:bg-yellow-500 transition-all transform hover:scale-105">Sign Up</button>
+        <button onclick="login()" class="bg-gray-700 text-white px-8 py-4 rounded-full shadow-lg hover:bg-gray-800 transition-all transform hover:scale-105">Login</button>
+      </div>
+      <p id="authStatus" class="mt-6 text-lg text-gray-200 font-semibold"></p>
+    </div>
+  </section>
+
+  <!-- Social Section -->
+  <section id="social" class="py-16 bg-gradient-to-b from-indigo-600 to-indigo-700 text-center text-white">
+    <h3 class="text-3xl font-bold mb-6">Follow Us</h3>
+    <div class="flex justify-center space-x-8">
+      <a href="#" class="text-white hover:text-yellow-300 transition-all">YouTube</a>
+      <a href="#" class="text-white hover:text-yellow-300 transition-all">Instagram</a>
+      <a href="#" class="text-white hover:text-yellow-300 transition-all">Telegram</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white text-center py-8">
+    &copy; 2025 NeelTech. All rights reserved.
+  </footer>
+
+</body>
+</html>
